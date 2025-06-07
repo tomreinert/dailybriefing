@@ -87,7 +87,6 @@ export default function DashboardPage() {
   const [events, setEvents] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [availableCalendars, setAvailableCalendars] = useState<Array<{ id: string; summary: string; primary?: boolean }>>([]);
-  const [briefingOpen, setBriefingOpen] = useState(false);
   const [briefingLoading, setBriefingLoading] = useState(false);
   const [briefing, setBriefing] = useState<string | null>(null);
   const [contextSnippets, setContextSnippets] = useState<any[]>([]);
@@ -473,7 +472,6 @@ export default function DashboardPage() {
   }
 
   const handleTestBriefing = async () => {
-    setBriefingOpen(true);
     setBriefingLoading(true);
     setBriefing(null);
     
@@ -923,29 +921,20 @@ export default function DashboardPage() {
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Creating your brief...
               </>
+            ) : briefing ? (
+              "Regenerate Brief"
             ) : (
               "Show Me My Brief"
             )}
           </Button>
-          {calendarSettings.selectedCalendars.length === 0 && (
+          {calendarSettings.selectedCalendars.length === 0 && !briefing && (
             <p className="text-sm text-amber-600">
               ⚠️ Connect your calendar first to see your personalized brief
             </p>
           )}
-        </div>
-      </div>
-      {briefingOpen && (
-        <div className="rounded-2xl p-8 border bg-card">
-          {briefingLoading ? (
-            <div className="text-center space-y-3">
-              <Loader2 className="h-8 w-8 animate-spin mx-auto text-blue-600" />
-              <div className="space-y-1">
-                <p className="text-lg font-medium text-gray-900 dark:text-white">Creating your personalized brief...</p>
-                <p className="text-sm text-muted-foreground">Looking at your calendar, notes, and emails</p>
-              </div>
-            </div>
-          ) : briefing ? (
-            <div className="space-y-4">
+
+          {briefing && !briefingLoading && (
+            <div className="space-y-4 pt-8">
               <div className="pb-6 border-b">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Your Daily Brief Preview</h3>
                 <p className="text-sm text-muted-foreground max-w-2xl">
@@ -956,9 +945,9 @@ export default function DashboardPage() {
                 <ReactMarkdown>{briefing}</ReactMarkdown>
               </div>
             </div>
-          ) : null}
+          )}
         </div>
-      )}
+      </div>
     </main>
   );
 } 
