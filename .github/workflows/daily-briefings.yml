@@ -1,0 +1,27 @@
+name: Send Daily Briefings
+
+on:
+  schedule:
+    # Run every 30 minutes to check for users whose delivery time has arrived
+    # This reduces monthly usage from 8,640 to 1,440 minutes
+    - cron: '*/30 * * * *'
+  
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  send-briefings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger briefing delivery
+        run: |
+          curl -X POST "${{ secrets.APP_URL }}/api/cron/send-briefings" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --fail-with-body \
+            --show-error \
+            --silent
+        continue-on-error: true
+      
+      - name: Log completion
+        run: echo "Briefing delivery check completed at $(date)" 

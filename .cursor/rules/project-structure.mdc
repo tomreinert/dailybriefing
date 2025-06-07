@@ -1,0 +1,45 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Structure and Patterns
+
+## Core Technologies
+- Next.js App Router for routing and server components
+- AI SDK for AI/LLM functionality
+- Supabase for authentication and database
+- shadcn/ui for UI components
+
+## AI Implementation
+- Use AI SDK patterns for all AI-related functionality
+- Route handlers for AI endpoints should follow the pattern in [app/api/chat/route.ts](mdc:app/api/chat/route.ts)
+- Use `streamText` from AI SDK for streaming responses
+- Keep AI-related code in dedicated API routes under `app/api/`
+
+## Database & Authentication
+- Use Supabase client/server utilities from [utils/supabase](mdc:utils/supabase)
+- Server-side operations should use `createClient()` from `utils/supabase/server.ts`
+- Client-side operations should use `createClient()` from `utils/supabase/client.ts`
+- Keep database queries in dedicated files under `actions/` directory
+
+## UI Components
+- Use shadcn/ui components for consistent UI
+- Follow component structure in `components/` directory
+- Keep components modular and reusable
+- Use server components by default, client components only when necessary
+
+## Code Organization
+- Keep API routes in `app/api/`
+- Place reusable utilities in `utils/`
+- Store database actions in `actions/`
+- Keep UI components in `components/`
+- Use TypeScript for type safety
+
+## Best Practices
+- Follow DRY principle - reuse existing patterns
+- Use server components where possible
+- Implement proper error handling
+- Keep environment variables in `.env.local`
+- Use TypeScript for better type safety
+- Follow Next.js 13+ best practices for App Router

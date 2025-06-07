@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Daily Briefing App Requirements
+
+To do
+- Implement mock calendar data if google api does not work
+- cap ai output tokens
+- try: extract notes to keep from emails (demo working with inbound parsing)
+- make inbound nr. 1
+
+
+## Core Functionality
+- Generate daily briefings combining:
+  - Google Calendar events
+  - User-curated custom notes
+  - Parsed content from inbound emails
+- Deliver briefings via email on user-defined schedule
+- Provide test mode for UI preview
+
+## User Onboarding
+- Google OAuth for signup
+- Empty dashboard with onboarding instructions on first login
+- No data pulled until explicit user actions
+- Calendar connection required for full functionality
+
+## Calendar Integration
+- Users must actively connect Google Calendar
+- Allow selection of multiple calendars
+- Fetch events for next 24 hours
+- Show preview of upcoming events in UI
+- Enable calendar management (add/remove)
+
+## Custom Information Management
+- Support for static, editable context:
+  - Notes
+  - Talking points
+  - Task lists
+- CRUD operations for user notes
+- Store notes per user for AI briefing generation
+
+## Email Integration
+- Provide unique inbound email address per user
+- Process emails via Postmark inbound webhook
+- Convert emails to structured context:
+  - Subject
+  - Body
+- Store parsed content in user-specific knowledge bucket
+- Display parsed content in UI
+- Include email content in briefings
+
+## User Settings
+- Configurable options:
+  - Daily briefing time
+  - Delivery email address
+  - Scheduling toggle
+- Store settings per user
+
+## Testing & Preview
+- "Test briefing" button in dashboard
+- Test flow:
+  1. Fetch calendar events
+  2. Get custom notes
+  3. Retrieve email knowledge
+  4. Generate briefing via AI SDK
+  5. Display in UI (no email delivery)
+
+## Scheduled Delivery
+- Background worker/cron job for daily execution
+- For each enabled user:
+  1. Fetch all context (calendar, notes, emails)
+  2. Process via AI SDK
+  3. Deliver via Postmark email
+
+## Technical Implementation
+- Use AI SDK for briefing generation
+- Implement Postmark for email handling
+- Store user data in Supabase
+- Use Next.js App Router for routing
+- Follow existing patterns in [project-structure.mdc](mdc:.cursor/rules/project-structure.mdc)

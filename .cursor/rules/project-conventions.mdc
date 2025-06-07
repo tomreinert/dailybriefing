@@ -1,0 +1,35 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Conventions
+
+- use pnpm for package intalls
+- Don't try to start the server, i will to this or assume its already running.
+
+## Database Management
+- All database schema changes should be made directly in the Supabase SQL editor
+- No migration files are used in this project
+- When making schema changes, document them in this file
+
+## Code Organization
+- API routes are stored in `app/api/`
+- Database types and utilities are in `lib/db/`
+- Components are in `components/`
+- Server actions are in `actions/`
+
+## Security
+- Row Level Security (RLS) policies should be enabled for all tables
+- Service role should be used for internal operations
+- Authenticated users should have appropriate read/write permissions
+
+## API Endpoints
+- All API endpoints should be documented with their purpose and expected payload
+- Use proper error handling and status codes
+- Validate incoming requests
+
+## Frontend
+- Use existing UI components from the components directory
+- Follow the established design patterns
+- Keep components focused and reusable
