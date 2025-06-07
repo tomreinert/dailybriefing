@@ -38,6 +38,9 @@ export const generateEmailHtml = (briefingContent: string, isTest = false): stri
       </head>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         ${isTest ? '<div style="background-color: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px; padding: 12px; margin-bottom: 20px; font-size: 14px;"><strong>🧪 Test Email</strong><br>This is a test of your daily briefing email. Your actual briefings will be sent according to your schedule.</div>' : ''}
+        <p style="font-size: 12px; color: #64748b; margin: 0 0 16px 0; font-style: italic;">
+          💡 Reply to this email to add context for tomorrow's briefing
+        </p>
         ${markdownToHtml(briefingContent)}
         <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
         <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0;">
