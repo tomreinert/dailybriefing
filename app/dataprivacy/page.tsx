@@ -80,13 +80,13 @@ export default function PrivacyPolicy() {
           <li>View, edit, or delete your data</li>
           <li>Request full data removal</li>
         </ul>
-        To do so, click the Delete Account Button in your profile page and/or email me at: <a href="mailto:mot.reinert@gmail.com" className="text-blue-600 underline">mot.reinert@gmail.com</a>
+        To do so, click the Delete Account Button in your profile page and/or email me at: <a href="mailto:hello@tomreinert.de" className="text-blue-600 underline">hello@tomreinert.de</a>
       </div>
 
       <h2 className="text-xl font-semibold mt-8 mb-2">7. Questions?</h2>
       <p className="mb-4">
         This app is an experiment to explore how email, AI, and daily planning can work together.
-        If you have any questions or concerns, please contact me at <a href="mailto:mot.reinert@gmail.com" className="text-blue-600 underline">mot.reinert@gmail.com</a>.
+        If you have any questions or concerns, please contact me at <a href="mailto:hello@tomreinert.de" className="text-blue-600 underline">hello@tomreinert.de</a>.
       </p>
     </div>
   );

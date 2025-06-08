@@ -12,7 +12,13 @@ export default async function HeaderAuth() {
 
 
   return user ? (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-4">
+      <Link 
+        href="/feedback" 
+        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        Feedback
+      </Link>
       <Link href="/profile" rel="nofollow">
         <img src={ "https://ui-avatars.com/api/?background=random&name=" + user.email} alt={user.email} className="w-8 h-8 rounded-full" />
       </Link>
