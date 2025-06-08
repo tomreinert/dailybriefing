@@ -149,7 +149,7 @@ export async function generateBriefingContent(data: BriefingData): Promise<strin
   
   // Construct the full content using the detailed prompt format
   const content = `
-    It is Sunday, June 8th - 07:00 am.
+    It is ${currentDateTime}.
     Calendar entries for the next ${daysInAdvance} days:
     ${eventsSection}
     ${contextSection}
