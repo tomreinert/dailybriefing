@@ -45,7 +45,7 @@ async function fetchUserBriefingData(userId: string, supabase: any) {
 }
 
 // Helper function to fetch calendar events using the same API as dashboard
-async function fetchCalendarEvents(calendarSettings: any, userId?: string) {
+async function fetchCalendarEvents(calendarSettings: any, userTimezone: string = 'UTC', userId?: string) {
   try {
     // Only fetch events if user has selected calendars
     if (!calendarSettings.selected_calendars || calendarSettings.selected_calendars.length === 0) {
@@ -67,9 +67,9 @@ async function fetchCalendarEvents(calendarSettings: any, userId?: string) {
     };
     
     if (isGithubProvider(provider)) {
-      // GitHub users get mock calendar events
-      console.log('Fetching mock calendar events for GitHub user');
-      const events = getMockEvents(settings.selectedCalendars, settings.daysInAdvance);
+      // GitHub users get mock calendar events - now with proper timezone support
+      console.log('Fetching mock calendar events for GitHub user with timezone:', userTimezone);
+      const events = getMockEvents(settings.selectedCalendars, settings.daysInAdvance, userTimezone);
       return events;
     } else {
       // Google users get real calendar events - pass userId for token access
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
     const { calendarSettings, contextSnippets, emails } = briefingData;
 
     // Fetch calendar events
-    const events = await fetchCalendarEvents(calendarSettings, user.id);
+    const events = await fetchCalendarEvents(calendarSettings, userTimezone, user.id);
 
     // Use consolidated briefing generation
     const briefingText = await generateBriefingContent({

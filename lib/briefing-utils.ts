@@ -149,7 +149,7 @@ export async function generateBriefingContent(data: BriefingData): Promise<strin
   
   // Construct the full content using the detailed prompt format
   const content = `
-    It is ${currentDateTime}.
+    It is Sunday, June 8th - 07:00 am.
     Calendar entries for the next ${daysInAdvance} days:
     ${eventsSection}
     ${contextSection}
@@ -163,7 +163,6 @@ export async function generateBriefingContent(data: BriefingData): Promise<strin
   const result = USE_OPENAI 
     ? await generateText({
         model: openai('gpt-4.1'),
-        temperature: 0.2,
         messages: [
           {
             role: 'system' as const,
