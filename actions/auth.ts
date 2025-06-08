@@ -228,7 +228,7 @@ export async function signInWithGoogle() {
       scopes: 'email profile https://www.googleapis.com/auth/calendar.readonly',
       queryParams: {
         access_type: 'offline',
-        prompt: 'consent'
+        prompt: 'select_account'
       }
     },
   })
