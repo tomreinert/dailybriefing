@@ -3,7 +3,7 @@ import { createClient } from '@/utils/supabase/server';
 import { generateBriefingContent, prepareEmailsForBriefing } from '@/lib/briefing-utils';
 import { sendBriefingEmail, generateReplyToEmailWithService } from '@/lib/email-service';
 
-// This endpoint is automatically called by Vercel's cron system
+// This endpoint is called by github actions
 // It processes all users and sends briefings based on their schedules
 export async function GET(req: Request) {
   try {

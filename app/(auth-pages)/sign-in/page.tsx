@@ -22,11 +22,11 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           <div className="border rounded-lg p-4 bg-muted/30">
             <div className="flex flex-col gap-3">
               <div>
-                <h2 className="text-xl font-bold mb-4">GitHub Sign-In <span className="p-2 bg-green-100 text-green-800 rounded-md text-xs ml-2">Mock data</span></h2>
-                <ul className="text-sm list-disc list-inside space-y-1">
-                  <li><strong>Mock data</strong> - realistic calendar events, optional demo context</li>
-                  <li>Recommended for evaluation</li>
-                </ul>
+                <div className="flex items-center gap-2 mb-4">
+                  <h2 className="text-xl font-bold">GitHub Sign-In</h2>
+                  <span className="py-1 px-2 bg-green-200 text-green-800 rounded-md text-xs font-bold">Mock data</span>
+                </div>
+                <strong>Mock data</strong> - realistic calendar events & demo context
               </div>
               <LoginGithub />
             </div>
@@ -37,14 +37,11 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           <div className="border rounded-lg p-4">
             <div className="flex flex-col gap-3">
               <div>
-                <h2 className="text-xl font-bold mb-4">
-                  Google Sign-In 
-                  <span className="p-2 bg-yellow-200 text-yellow-900 rounded-md text-xs ml-2">Real data</span>
-                </h2>
-                <ul className="text-sm list-disc pl-4 space-y-1">
-                  <li><strong>Real data</strong> - uses your actual Google Calendar</li>
-                  <li>Shows unverified app warning – click "Advanced"</li>
-                </ul>
+                <div className="flex items-center gap-2 mb-4">
+                  <h2 className="text-xl font-bold">Google Sign-In</h2>
+                  <span className="py-1 px-2 bg-yellow-200 text-yellow-900 rounded-md text-xs font-bold">Real data</span>
+                </div>
+                <strong>Real data</strong> - uses your actual Google Calendar
               </div>
               <LoginGoogle />
             </div>
