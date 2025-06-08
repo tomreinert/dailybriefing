@@ -531,9 +531,9 @@ export default function DashboardPage() {
     <main className="max-w-5xl flex flex-col gap-8 mx-auto">
       {/* Headline and friendly intro */}
       <div className="text-center">
-        <h1 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white mb-4 mt-4">Your Daily Morning Brief</h1>
+        <h1 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white mb-4 mt-4">Your Daily Brief</h1>
         <p className="text-muted-foreground text-xl max-w-3xl mx-auto text-balance mb-4">
-          Get a personalized summary every morning with your upcoming events, important notes, and key information—all in one simple email.
+          Get a personalized summary every day with your upcoming events, important notes, and key information—all in one simple email.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -908,7 +908,7 @@ export default function DashboardPage() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Ready to see your brief?</h2>
           <p className="text-muted-foreground ">
-            Once you've set up your calendar and notes above, click here to see what your daily morning email will look like.
+            Once you've set up your calendar and notes above, click here to see what your daily email will look like.
           </p>
           <Button
             size="lg"
@@ -938,7 +938,7 @@ export default function DashboardPage() {
               <div className="pb-6 border-b">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Your Daily Brief Preview</h3>
                 <p className="text-sm text-muted-foreground max-w-2xl">
-                  This is what your morning email will look like. Set up email delivery to receive this automatically every day.
+                  This is what your email will look like. Set up email delivery to receive this automatically every day.
                 </p>
               </div>
               <div className="prose prose-headings:text-xl max-w-none prose-headings:font-bold prose-headings:text-foreground dark:prose-invert prose-headings:mb-4 prose-p:mb-4">
