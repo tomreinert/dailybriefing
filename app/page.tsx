@@ -3,7 +3,6 @@ import CalendarIcon from "@/components/icons/CalendarIcon";
 import EmailIcon from "@/components/icons/EmailIcon";
 import ContextIcon from "@/components/icons/ContextIcon";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 

@@ -3,6 +3,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ThemeProvider } from "next-themes";
 import Link from "next/link";
 import "./globals.css";
+import DailybriefIcon from "@/components/icons/DailybriefIcon";
 
 
 export const metadata = {
@@ -29,7 +30,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <header className="flex items-center justify-between border-b p-4">
-            <Link href={"/"}>Daily Brief</Link>
+            <div className="flex items-center gap-2">
+              <DailybriefIcon width={32} height={32} />
+              <Link className="font-bold" href={"/"}>Daily Brief</Link>
+            </div>
             <nav>
               <HeaderAuth />
             </nav>

@@ -15,7 +15,7 @@ const LoginGoogle = () => {
   return (
     <Button
       onClick={handleGoogleLogin}
-      variant="outline"
+      variant="default"
       className="w-full"
     >
       {isPending ? "Redirecting..." : "Continue with Google"}

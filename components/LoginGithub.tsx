@@ -16,6 +16,7 @@ const LoginGithub = () => {
     <Button
       onClick={handleGithubLogin}
       className="w-full"
+      variant="outline"
     >
       {isPending ? "Redirecting..." : "Continue with GitHub"}
     </Button>
