@@ -191,14 +191,21 @@ export default function ContextSnippets() {
     <div className="space-y-4">
       <div className="flex gap-2 items-center">
         <Input
+          id="new-snippet-input"
           value={newSnippet}
           onChange={e => setNewSnippet(e.target.value)}
           placeholder="Add a new snippet (e.g. To-Do, note, talking point)"
           className="flex-1"
           maxLength={200}
+          aria-label="Add new personal note or context snippet"
+          aria-describedby="snippet-help"
           onKeyDown={e => { if (e.key === 'Enter') addSnippet(); }}
         />
-        <Button onClick={addSnippet} disabled={!newSnippet.trim() || snippets.length >= 20}>
+        <Button 
+          onClick={addSnippet} 
+          disabled={!newSnippet.trim() || snippets.length >= 20}
+          aria-label="Add new snippet"
+        >
           Add
         </Button>
       </div>
@@ -247,29 +254,33 @@ export default function ContextSnippets() {
             <li>Kids: Emma, Jake</li>
           </ul>
           <div className="mt-2 flex flex-col gap-3">
-            <span>Add your first snippet above!</span>
+            <span id="snippet-help">Add your first snippet above!</span>
           </div>
         </div>
         </>
       ) : (
-        <ul className="">
+        <ul className="" role="list" aria-label="Personal context snippets">
           {snippets.map(snippet => (
-            <li key={snippet.id} className="flex items-center gap-2 rounded p-2">
+            <li key={snippet.id} className="flex items-center gap-2 rounded p-2" role="listitem">
               <Checkbox
+                id={`snippet-${snippet.id}`}
                 checked={snippet.active}
                 onCheckedChange={checked => handleActiveToggle(snippet.id, !!checked)}
                 className="mr-2"
+                aria-label={`${snippet.active ? 'Disable' : 'Enable'} snippet: ${snippet.content}`}
               />
               <Input
                 value={localValues[snippet.id] || snippet.content}
                 onChange={e => handleContentChange(snippet.id, e.target.value)}
                 className={`flex-1 ${!snippet.active ? 'line-through text-muted-foreground' : ''}`}
                 maxLength={200}
+                aria-label={`Edit snippet: ${snippet.content}`}
               />
               <Button
                 size="icon"
                 variant="ghost"
                 onClick={() => deleteSnippet(snippet.id)}
+                aria-label={`Delete snippet: ${snippet.content}`}
               >
                 <Trash2 className="h-4 w-4 text-destructive" />
               </Button>

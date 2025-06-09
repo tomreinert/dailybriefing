@@ -440,6 +440,7 @@ export default function DashboardPage() {
                       size="sm"
                       className="shrink-0 h-12 px-3"
                       disabled={!inboundEmail}
+                      aria-label={copySuccess ? "Email address copied" : `Copy email address ${inboundEmail}`}
                       onClick={async (e) => {
                         e.stopPropagation();
                         if (inboundEmail) {
@@ -450,6 +451,9 @@ export default function DashboardPage() {
                       }}
                     >
                       {copySuccess ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                      <span className="sr-only">
+                        {copySuccess ? "Copied!" : "Copy to clipboard"}
+                      </span>
                     </Button>
                   </div>
                 </div>
@@ -458,18 +462,6 @@ export default function DashboardPage() {
           : `${emailsCount} email${emailsCount > 1 ? 's' : ''} received`,
     },
   };
-
-  // Pulse dot and checkmark dot components
-  function PulseDot() {
-    return (
-      <span className="mr-2 inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse align-middle" title="Needs action" />
-    );
-  }
-  function CheckDot() {
-    return (
-      <span className="mr-2 inline-block w-2 h-2 rounded-full bg-green-500 align-middle" title="Done" />
-    );
-  }
 
   const handleTestBriefing = async () => {
     setBriefingLoading(true);
@@ -563,6 +555,15 @@ export default function DashboardPage() {
                       : ""
                   )}
                   onClick={() => setOpen(card.key)}
+                  role="button"
+                  aria-label={`Configure ${card.title}: ${stepDescriptions[card.key as keyof typeof stepDescriptions]}`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setOpen(card.key);
+                    }
+                  }}
                 >
                   {/* Card Header: Icon and Title */}
                   <CardHeader className="p-6 gap-0">
@@ -598,21 +599,21 @@ export default function DashboardPage() {
                       }
                       {/* Show loading spinners for each card type */}
                       {card.key === "calendar" && calendarSettingsLoading && (
-                        <div className="flex items-center text-muted-foreground">
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          <span className="text-sm">Loading...</span>
+                        <div className="flex items-center text-muted-foreground" role="status" aria-live="polite">
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" aria-hidden="true" />
+                          <span className="text-sm">Loading calendar settings...</span>
                         </div>
                       )}
                       {card.key === "context" && contextLoading && (
-                        <div className="flex items-center text-muted-foreground">
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          <span className="text-sm">Loading...</span>
+                        <div className="flex items-center text-muted-foreground" role="status" aria-live="polite">
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" aria-hidden="true" />
+                          <span className="text-sm">Loading personal notes...</span>
                         </div>
                       )}
                       {card.key === "email" && (emailsLoading || inboundEmailLoading) && (
-                        <div className="flex items-center text-muted-foreground">
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          <span className="text-sm">Loading...</span>
+                        <div className="flex items-center text-muted-foreground" role="status" aria-live="polite">
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" aria-hidden="true" />
+                          <span className="text-sm">Loading email inbox...</span>
                         </div>
                       )}
                     </div>
@@ -636,9 +637,12 @@ export default function DashboardPage() {
                   </CardFooter>
                 </Card>
               </DialogTrigger>
-              <DialogContent className="min-w-[80vw] h-[90vh] flex flex-col">
+              <DialogContent className="min-w-[80vw] h-[90vh] flex flex-col" aria-describedby={`${card.key}-dialog-description`}>
                 <DialogHeader>
                   <DialogTitle>{card.title}</DialogTitle>
+                  <p id={`${card.key}-dialog-description`} className="sr-only">
+                    {stepDescriptions[card.key as keyof typeof stepDescriptions]}
+                  </p>
                 </DialogHeader>
                 <div className="flex-1 overflow-scroll p-1">
                   {card.key === "calendar" && (
@@ -741,6 +745,7 @@ export default function DashboardPage() {
                                 {availableCalendars.map((cal) => (
                                   <div key={cal.id} className="flex items-center gap-1 text-sm">
                                     <Checkbox
+                                      id={`calendar-${cal.id}`}
                                       checked={calendarSettings.selectedCalendars.includes(cal.id)}
                                       onCheckedChange={(checked) => {
                                         const newSelected = checked
@@ -758,10 +763,10 @@ export default function DashboardPage() {
                                         });
                                       }}
                                     />
-                                    <span className="font-normal">
+                                    <label htmlFor={`calendar-${cal.id}`} className="font-normal cursor-pointer">
                                       {cal.summary}
                                       {cal.primary && <span className="text-muted-foreground ml-1">(Primary)</span>}
-                                    </span>
+                                    </label>
                                   </div>
                                 ))}
                               </div>
@@ -792,9 +797,9 @@ export default function DashboardPage() {
                                 Loading events...
                               </div>
                             ) : events.length > 0 ? (
-                              <div className="divide-y-1">
+                              <div className="divide-y-1" role="list" aria-label="Upcoming calendar events">
                                 {events.map((event, index) => (
-                                  <div key={index} className="text-sm flex justify-between py-2">
+                                  <div key={index} className="text-sm flex justify-between py-2" role="listitem">
                                     <div className="font-medium">{event.summary || 'Untitled'}</div>
                                     <div className="text-muted-foreground text-right">{formatEventTime(event)}</div>
                                   </div>
@@ -817,7 +822,7 @@ export default function DashboardPage() {
                     <>
                       {/* How it works section */}
                       <div className="mb-6 p-6 bg-indigo-50 dark:bg-card rounded-lg border text-card-foreground">
-                        <h3 className="text-lg font-semibold mb-3">Your Personal Email Address</h3>
+                        <h3 className="text-lg font-semibold mb-3" id="email-setup-heading">Your Personal Email Address</h3>
                         <div className="space-y-4">
                           <div>
                             <p className="text-sm text-muted-foreground mb-3">

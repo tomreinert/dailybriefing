@@ -385,8 +385,8 @@ export default function EmailScheduleSettings({ userEmail }: Props) {
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {/* Recipients Section */}
-        <section>
-          <h2 className="text-lg font-bold">Where should we send your daily brief?</h2>
+        <section aria-labelledby="email-recipients-heading">
+          <h2 id="email-recipients-heading" className="text-lg font-bold">Where should we send your daily brief?</h2>
           <div className="flex flex-wrap gap-2 mt-3">
             {emailList.map((email) => (
               <div
@@ -407,7 +407,7 @@ export default function EmailScheduleSettings({ userEmail }: Props) {
             <div className="flex gap-2 items-center">
               <Input
                 id="email_input"
-                type="text"
+                type="email"
                 placeholder="another@email.com"
                 value={emailInput}
                 onChange={(e) => {
@@ -421,6 +421,9 @@ export default function EmailScheduleSettings({ userEmail }: Props) {
                     addEmail();
                   }
                 }}
+                aria-label="Add email address"
+                aria-describedby={emailError ? "email-error" : "email-help"}
+                aria-invalid={emailError ? "true" : "false"}
                 className={`shadow-none h-11 w-56 ${emailError ? 'border-red-300' : ''}`}
               />
               <Button
@@ -436,17 +439,18 @@ export default function EmailScheduleSettings({ userEmail }: Props) {
             </div>
           </div>
           {emailError && (
-            <p className="text-sm text-red-600 mt-1">{emailError}</p>
+            <p id="email-error" className="text-sm text-red-600 mt-1" role="alert">{emailError}</p>
           )}
           {emailList.length === 0 && (
-            <p className="text-sm text-muted-foreground mt-1">Add one or more email addresses</p>
+            <p id="email-help" className="text-sm text-muted-foreground mt-1">Add one or more email addresses</p>
           )}
         </section>
 
         <hr className="my-2 border-gray-200 dark:border-gray-700" />
 
         {/* Schedule Section */}
-        <section>
+        <section aria-labelledby="schedule-heading">
+          <h2 id="schedule-heading" className="sr-only">Schedule Settings</h2>
           <div className="flex flex-col md:flex-row md:items-end gap-8">
             {/* Time of day */}
             <div>
